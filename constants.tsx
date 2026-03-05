@@ -1,14 +1,13 @@
 
 import React from 'react';
+import emblemImg from './components/emblem.png';
 
 export const DMED_PRIMARY = '#0066CC';
-
-export const EMBLEM = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyNDAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwNjZDQyIgc3Ryb2tlLXdpZHRoPSI1Ii8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUwLCAyNTApIHNjYWxlKDAuOCkiPgogICAgPHBhdGggZD0iTTAgLTE1MCBMMzAgLTUwIEwxNTAgLTUwIEw1MCAtMTAgTDgwIDkwIEwwIDMwIEwtODAgOTAgTC01MCAtMTAgTC0xNTAgLTUwIEwtMzAgLTUwIFoiIGZpbGw9IiNGRkQ3MDAiIHN0cm9rZT0iI0I4ODYwQiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8cGF0aCBkPSJNLTE4MCAtNTAgQTAgMCAxIDAgMCAxODAgLTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDk5NjYiIHN0cm9rZS13aWR0aD0iMTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTE4MCAtNTAgQTAgMCAwIDEgMCAwIC0xODAgLTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY2Q0MiIHN0cm9rZS13aWR0aD0iMTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTAiIHk9IjQ0MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDA2NkNDIiBmb250LXdlaWdodD0iYm9sZCI+TydaQkVLSVNUT048L3RleHQ+Cjwvc3ZnPg==";
 
 export const UzbekistanEmblem: React.FC<{ className?: string }> = ({ className = "w-24 h-24" }) => (
   <div className={className}>
     <img 
-      src={EMBLEM} 
+      src={emblemImg} 
       alt="Uzbekistan Emblem" 
       className="w-full h-full object-contain"
     />
