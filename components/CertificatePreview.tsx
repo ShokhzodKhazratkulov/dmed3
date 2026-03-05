@@ -71,15 +71,18 @@ const CertificatePreview: React.FC<Props> = ({ certificate, onClose, onUpdate })
   const generateMedicalCertificatePdf = async (): Promise<Blob | null> => {
     if (!printRef.current) return null;
     try {
+      // Wait a moment for any final rendering (like QR code)
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       // @ts-ignore
       const { jsPDF } = window.jspdf;
       // @ts-ignore
       const canvas = await html2canvas(printRef.current, {
-        scale: 2, // Scale 2 is optimal for high quality without crashing browsers
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        allowTaint: false, // Must be false to allow toDataURL()
+        allowTaint: false,
         imageTimeout: 15000,
         onclone: (clonedDoc: Document) => {
           const el = clonedDoc.querySelector('.certificate-container') as HTMLElement;
@@ -87,11 +90,14 @@ const CertificatePreview: React.FC<Props> = ({ certificate, onClose, onUpdate })
             el.style.transform = 'none';
             el.style.margin = '0';
             el.style.display = 'flex';
+            el.style.position = 'relative';
+            el.style.top = '0';
+            el.style.left = '0';
           }
         }
       });
       
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const imgData = canvas.toDataURL('image/jpeg', 0.9);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',

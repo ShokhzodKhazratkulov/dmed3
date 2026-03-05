@@ -3,7 +3,7 @@ import React from 'react';
 
 export const DMED_PRIMARY = '#0066CC';
 
-export const EMBLEM = "https://upload.wikimedia.org/wikipedia/commons/7/77/Emblem_of_Uzbekistan.svg";
+export const EMBLEM = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY2Q0MiIHN0cm9rZS13aWR0aD0iMiI+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgc3Ryb2tlPSIjM0E3NUIwIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIzNSIgc3Ryb2tlPSIjM0E3NUIwIi8+CiAgPC9nPgogIDxwYXRoIGQ9Ik01MCAxNSBMNTQgMzAgTDcwIDMwIEw1OCA0MCBMNjIgNTUgTDUwIDQ1IEwzOCA1NSBMNDIgNDAgTDMwIDMwIEw0NiAzMCBaIiBmaWxsPSIjRkZDQjAwIi8+CiAgPHBhdGggZD0iTTUwIDY1IEMzMCA2NSA1MCA4NSA1MCA4NSBDNTAgODUgNzAgNjUgNTAgNjVaIiBmaWxsPSIjM0E3NUIwIi8+Cjwvc3ZnPg==";
 
 export const UzbekistanEmblem: React.FC<{ className?: string }> = ({ className = "w-24 h-24" }) => (
   <div className={className}>
