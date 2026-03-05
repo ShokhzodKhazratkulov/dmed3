@@ -116,13 +116,17 @@ const CertificatePreview: React.FC<Props> = ({ certificate, onClose, onUpdate })
   const handleDownload = async () => {
     try {
       if (pdfUrl) {
+        // If we have a stored PDF URL, fetch it as a blob to ensure download triggers correctly
+        const response = await fetch(pdfUrl);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.href = pdfUrl;
+        link.href = url;
         link.download = `DMED_${data.patientFullName.replace(/\s+/g, '_')}.pdf`;
-        link.target = '_blank';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        URL.revokeObjectURL(url);
         return;
       }
 
