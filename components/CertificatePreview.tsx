@@ -75,13 +75,13 @@ const CertificatePreview: React.FC<Props> = ({ certificate, onClose, onUpdate })
       const { jsPDF } = window.jspdf;
       // @ts-ignore
       const canvas = await html2canvas(printRef.current, {
-        scale: 5, // Increased scale for ultra-high professional print quality
+        scale: 2, // Scale 2 is optimal for high quality without crashing browsers
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        allowTaint: true,
-        imageTimeout: 0, // Ensure all images are loaded
-        onclone: (clonedDoc) => {
+        allowTaint: false, // Must be false to allow toDataURL()
+        imageTimeout: 15000,
+        onclone: (clonedDoc: Document) => {
           const el = clonedDoc.querySelector('.certificate-container') as HTMLElement;
           if (el) {
             el.style.transform = 'none';
@@ -91,36 +91,51 @@ const CertificatePreview: React.FC<Props> = ({ certificate, onClose, onUpdate })
         }
       });
       
-      const imgData = canvas.toDataURL('image/png', 1.0); // Maximum quality
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
-        hotfixes: ["px_lines"],
-        compress: false // Disable compression for maximum pixel-perfection
+        compress: true
       });
       
-      pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'FAST'); // 'FAST' alias can sometimes be sharper than 'SLOW' depending on the browser's interpolation
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
       return pdf.output('blob');
     } catch (err) {
+      console.error("PDF generation error:", err);
       return null;
     }
   };
 
   const handleDownload = async () => {
-    if (pdfUrl) {
-      window.open(pdfUrl, '_blank');
-      return;
-    }
+    try {
+      if (pdfUrl) {
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = `DMED_${data.patientFullName.replace(/\s+/g, '_')}.pdf`;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
 
-    const blob = await generateMedicalCertificatePdf();
-    if (blob) {
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `DMED_${data.patientFullName.replace(/\s+/g, '_')}.pdf`;
-      link.click();
-      URL.revokeObjectURL(url);
+      const blob = await generateMedicalCertificatePdf();
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `DMED_${data.patientFullName.replace(/\s+/g, '_')}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else {
+        alert("PDF yaratishda xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
+      }
+    } catch (err) {
+      console.error("Download error:", err);
+      alert("Yuklab olishda xatolik yuz berdi.");
     }
   };
 
